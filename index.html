@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <title>CurtainsOS</title>
+    </head>
+
+    <body>
+        <script src="js/curtainEffects.js"></script>
+        <main>
+            <div class="centered-content">
+                <h1 class="color1 bold">Welcome to CurtainsOS!</h1>
+                <p class="color1">This is CurtainsOS! A pun on Windows, with lot's of cool features such as curtain animations and other easter eggs. </p>
+                <button class="nice-button" onclick="document.getElementById('curtainOverlay').classList.remove('is-open'); setTimeout(() => { window.location.href = './html/run.html'; }, 1500);">Run CurtainsOS</button>
+            </div>
+        </main>
+
+        <footer>
+            <div class="footer-left">
+                <span class="color1">Made by Zac Ianculovici  <a class="color1" href="mailto:zachary.ianculovici@gmail.com">zachary.ianculovici@gmail.com</a></span>
+            </div>
+            <div class="footer-right">
+                <span class="color1">Find me on:</span>
+                <a class="right-align" href="https://github.com/zacianculovici" rel="noopener noreferrer"><img class="fit-parent-svg" src="assets/images/github_logo.svg" alt="GitHub"></a>
+                <a class="right-align" href="https://stardance.hackclub.com/@zac_i/" rel="noopener noreferrer"><img class="fit-parent-svg" src="assets/images/stardance_logo.jpeg" alt="Stardance"></a>
+                <a class="right-align" href="https://hackclub.enterprise.slack.com/team/U0BMLT1CFB3" rel="noopener noreferrer"><img class="fit-parent-svg" src="assets/images/slack_logo.svg" alt="Slack"></a>
+            </div>
+        </footer>
+
+        <div id="curtainOverlay" class="curtain-container">
+            <div class="left-curtain"></div>
+            <div class="right-curtain"></div>
+        </div>
+    </body>
+</html>

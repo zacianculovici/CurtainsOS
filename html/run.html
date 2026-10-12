@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="../style.css">
+        <title>CurtainsOS</title>
+    </head>
+
+    <body id="osbody">
+        <script src="../js/curtainEffects.js"></script>
+        <script src="../js/generalScript.js"></script>
+        <script src="../js/windows.js"></script>
+        <main>
+            <div id="top-bar">
+                <h1 class="color1 bold no-select">CurtainsOS</h1>
+                <div class="top-bar-buttons">
+                    <span class="color1 no-select" id="time-top-bar">12/10/2026 1:30:00pm</span>
+                    <button class="nice-button" onclick="document.getElementById('curtainOverlay').classList.remove('is-open'); setTimeout(() => { window.location.href = '../index.html'; }, 1500);">Exit</button>
+                </div>
+            </div>
+            <div class="desktop">
+                <button class="nice-button" onclick="openWindow('window-1')">Open Sample Window</button>
+            </div>
+
+            <div id="window-1" class="window">
+                <div class="window-header no-select">
+                    <span class="window-title">CurtainsOS</span>
+                    <button class="close-button" onclick="closeWindow('window-1')"><img class="close-icon" src="../assets/images/close.svg" alt="Close"></button>
+                </div>
+                <div class="window-content">
+                    <p>This is a sample window in CurtainsOS. You can add more content here.</p>
+                </div>
+            </div>
+        </main>
+
+        <div id="curtainOverlay" class="curtain-container">
+            <div class="left-curtain"></div>
+            <div class="right-curtain"></div>
+        </div>
+    </body>
+</html>
