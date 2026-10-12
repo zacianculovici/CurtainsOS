@@ -19,16 +19,28 @@
                 </div>
             </div>
             <div class="desktop">
-                <button class="nice-button" onclick="openWindow('window-1')">Welcome<img src="../assets/images/welcome.png" alt="Welcome"></button>
+                <button class="nice-button" onclick="openWindow('window-1')">Welcome<img class="desktop-icon" src="../assets/images/welcome.png" alt="Welcome"></button>
+                <button class="nice-button" onclick="openWindow('window-2')">Notes<img class="desktop-icon" src="../assets/images/notes.png" alt="Notes"></button>
             </div>
 
-            <div id="window-1" class="window">
+            <div id="window-1" class="window" style="visibility: visible !important;">
                 <div class="window-header no-select">
                     <span class="window-title">CurtainsOS</span>
-                    <button class="close-button" onclick="closeWindow('window-1')"><img class="close-icon" src="../assets/images/close.svg" alt="Close"></button>
+                    <button class="close-button"><img class="close-icon" src="../assets/images/close.svg" alt="Close"></button>
                 </div>
                 <div class="window-content">
-                    <p>This is a sample window in CurtainsOS. You can add more content here.</p>
+                    <h1>Welcome to CurtainsOS!</h1>
+                    <p>This is CurtainsOS! A pun on Windows, with lot's of cool features such as curtain animations and other easter eggs.</p>
+                </div>
+            </div>
+
+            <div id="window-2" class="window">
+                <div class="window-header no-select">
+                    <span class="window-title">Notes</span>
+                    <button class="close-button"><img class="close-icon" src="../assets/images/close.svg" alt="Close"></button>
+                </div>
+                <div class="window-content">
+                    <textarea class="nice-textarea" placeholder="This is a simple notes window. You can add your own notes here."></textarea>
                 </div>
             </div>
         </main>
