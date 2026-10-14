@@ -19,30 +19,26 @@
                 </div>
             </div>
             <div class="desktop">
-                <button class="nice-button" onclick="openWindow('window-1')">Welcome<img class="desktop-icon" src="../assets/images/welcome.png" alt="Welcome"></button>
-                <button class="nice-button" onclick="openWindow('window-2')">Notes<img class="desktop-icon" src="../assets/images/notes.png" alt="Notes"></button>
+                <button class="nice-button" onclick="openWindow('welcome-window')">Welcome<img class="desktop-icon" src="../assets/images/welcome.png" alt="Welcome"></button>
+                <button class="nice-button" onclick="openWindow('notes-window')">Notes<img class="desktop-icon" src="../assets/images/notes.png" alt="Notes"></button>
             </div>
 
-            <div id="window-1" class="window" style="visibility: visible !important;">
-                <div class="window-header no-select">
-                    <span class="window-title">CurtainsOS</span>
-                    <button class="close-button"><img class="close-icon" src="../assets/images/close.svg" alt="Close"></button>
-                </div>
-                <div class="window-content">
-                    <h1>Welcome to CurtainsOS!</h1>
-                    <p>This is CurtainsOS! A pun on Windows, with lot's of cool features such as curtain animations and other easter eggs.</p>
-                </div>
-            </div>
+            <app-window id="welcome-window" title="Welcome" startopened="true">
+                <h1>Welcome to CurtainsOS!</h1>
+                <p>This is CurtainsOS! A pun on Windows, with lot's of cool features such as curtain animations and other easter eggs.</p>
+            </app-window>
 
-            <div id="window-2" class="window">
-                <div class="window-header no-select">
-                    <span class="window-title">Notes</span>
-                    <button class="close-button"><img class="close-icon" src="../assets/images/close.svg" alt="Close"></button>
-                </div>
-                <div class="window-content">
-                    <textarea class="nice-textarea" placeholder="This is a simple notes window. You can add your own notes here."></textarea>
-                </div>
-            </div>
+            <app-window id="notes-window" title="Notes" contentstyle="overflow:hidden;">
+                <textarea class="nice-textarea" placeholder="This is a simple notes window. You can add your own notes here."></textarea>
+            </app-window>
+
+            <app-window id="window-3" title="My Custom Window">
+                <p>hi</p>
+            </app-window>
+
+            <app-window id="window-4" title="My Custom Window2">
+                <p>hi2</p>
+            </app-window>
         </main>
 
         <div id="curtainOverlay" class="curtain-container">
