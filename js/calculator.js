@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
         } else if (event.key === 'Backspace') {
             backspaceCalc();
         } else if (event.key.length === 1 && /[0-9+\-*/().]/.test(event.key)) {
-            appendToCalc(event.key);
+            appendToCalc(event.key.replace('*', 'x').replace('/', '÷'));
         }
     });
 });
