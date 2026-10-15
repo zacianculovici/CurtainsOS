@@ -9,7 +9,7 @@ class AppWindow extends HTMLElement {
     }
 
     static get observedAttributes() {
-        return ['title', 'startopened', 'contentstyle'];
+        return ['title', 'winid', 'startopened', 'contentstyle', 'windowstyle'];
     }
 
     attributeChangedCallback(name, oldValue, newValue) {
@@ -24,6 +24,12 @@ class AppWindow extends HTMLElement {
                     windowContent.setAttribute('style', newValue);
                 }
             }
+            if (name === 'windowstyle') {
+                const windowDiv = this.shadowRoot.querySelector('.window');
+                if (windowDiv) {
+                    windowDiv.setAttribute('style', newValue);
+                }
+            }
         }
     }
 
@@ -31,9 +37,11 @@ class AppWindow extends HTMLElement {
         // Renders directly into the main page's DOM tree
         this.shadowRoot.innerHTML = `
             <link rel="stylesheet" href="../style.css">
-            <div id="${this.getAttribute('id')}" class="window"${
-                this.getAttribute('startopened') === 'true' ? ' style="visibility: visible !important;"' : ''
-            }>
+            <div id="${this.getAttribute('winid')}" class="window" style="${
+                this.getAttribute('startopened') === 'true' ? 'visibility: visible !important;' : ''
+            }${
+                this.getAttribute('windowstyle') || ''
+            }">
                 <div class="window-header no-select">
                     <span class="window-title">${this.getAttribute('title')}</span>
                     <button class="close-button"><img class="close-icon" src="../assets/images/close.svg" alt="Close"></button>
@@ -43,7 +51,6 @@ class AppWindow extends HTMLElement {
                 </div>
             </div>
         `;
-        console.log(this.shadowRoot.styleSheets.length);
     }
 }
 
@@ -90,11 +97,9 @@ document.addEventListener("DOMContentLoaded", function() {
     elements.forEach(function(element) {
         initializeWindow(element.shadowRoot.querySelector(".window"));
         element.shadowRoot.querySelector(".window-header").querySelector(".close-button").addEventListener("click", function() {
-            console.log("Close button clicked for window: " + element.getAttribute('id'));
-            closeWindow(element.getAttribute('id'));
+            closeWindow(element.shadowRoot.querySelector(".window").getAttribute('id'));
         });
         element.shadowRoot.querySelector(".window").addEventListener("mousedown", function() {
-            console.log("Window clicked: " + element.getAttribute('id'));
             element.shadowRoot.querySelector(".window").style.zIndex = 910; // Bring the clicked window to the front
             elements.forEach(function(otherElement) {
                 if (otherElement !== element) {
@@ -106,12 +111,17 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function openWindow(windowId) {
-    var myWindow = document.getElementById(windowId).shadowRoot.querySelector(".window");
+    var myWindow = null;
+    document.querySelectorAll("app-window").forEach(window => {
+        var id = window.getAttribute("winid");
+        if (id === windowId) {
+            myWindow = window.shadowRoot.querySelector(".window");
+        }
+    });
     if (myWindow) {
         myWindow.style.visibility = "visible"; // Show the window
         myWindow.style.zIndex = 900; // Bring the window to the front
         if (windowId !== "window-1") {
-            console.log("Randomizing position for window: " + windowId);
             myWindow.style.top = (Math.random() * (window.innerHeight - myWindow.offsetHeight - document.querySelector("#top-bar").offsetHeight)) + document.querySelector("#top-bar").offsetHeight + "px";
             myWindow.style.left = (Math.random() * (window.innerWidth - myWindow.offsetWidth)) + "px";
         }
@@ -119,10 +129,17 @@ function openWindow(windowId) {
 }
 
 function closeWindow(windowId) {
-    var window = document.getElementById(windowId).shadowRoot.querySelector(".window");
-    console.log(window);
-    if (window) {
-        window.style.visibility = "hidden"; // Hide the window
-        window.style.zIndex = 0; // Reset the z-index
+    var myWindow = null;
+    document.querySelectorAll("app-window").forEach(window => {
+        var id = window.getAttribute("winid");
+        if (id === windowId) {
+            myWindow = window.shadowRoot.querySelector(".window");
+        }
+    });
+    if (myWindow) {
+        myWindow.style.visibility = "hidden"; // Hide the window
+        myWindow.style.zIndex = 0; // Reset the z-index
+    } else {
+        console.error(`Window with ID "${windowId}" not found.`);
     }
 }

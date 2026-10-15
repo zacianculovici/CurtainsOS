@@ -10,6 +10,7 @@
         <script src="../js/curtainEffects.js"></script>
         <script src="../js/generalScript.js"></script>
         <script src="../js/windows.js"></script>
+        <script src="../js/justAnEasterEgg.js"></script>
         <main>
             <div id="top-bar">
                 <h1 class="color1 bold no-select">CurtainsOS</h1>
@@ -19,25 +20,73 @@
                 </div>
             </div>
             <div class="desktop">
+                <!-- @REVIEWER! I don't have many windows now, but I'll add more in WebOS 2... -->
                 <button class="nice-button" onclick="openWindow('welcome-window')">Welcome<img class="desktop-icon" src="../assets/images/welcome.png" alt="Welcome"></button>
                 <button class="nice-button" onclick="openWindow('notes-window')">Notes<img class="desktop-icon" src="../assets/images/notes.png" alt="Notes"></button>
+                <button class="nice-button" onclick="openWindow('calculator-window')">Calculator<img class="desktop-icon" src="../assets/images/calculator.png" alt="Calculator"></button>
+                <button class="nice-button" onclick="openWindow('goto-window')">Goto Page<img class="desktop-icon" src="../assets/images/browser.png" alt="Goto Page"></button>
             </div>
 
-            <app-window id="welcome-window" title="Welcome" startopened="true">
+            <app-window winid="welcome-window" title="Welcome" startopened="true">
                 <h1>Welcome to CurtainsOS!</h1>
                 <p>This is CurtainsOS! A pun on Windows, with lot's of cool features such as curtain animations and other easter eggs.</p>
             </app-window>
 
-            <app-window id="notes-window" title="Notes" contentstyle="overflow:hidden;">
+            <app-window winid="notes-window" title="Notes">
                 <textarea class="nice-textarea" placeholder="This is a simple notes window. You can add your own notes here."></textarea>
             </app-window>
 
-            <app-window id="window-3" title="My Custom Window">
-                <p>hi</p>
+            <app-window winid="calculator-window" title="Calculator" windowstyle="height: 510px; min-height: 500px; width: 310px; min-width: 310px;">
+                <script src="../js/calculator.js"></script>
+                <h1>Calculator</h1>
+                <p>This is a simple calculator. I don't really need to explain this, do I?</p>
+                <input type="text" class="nice-input" id="calcInput" placeholder="Enter expression here" readonly>
+                <table id="calcButtons" style="border-collapse: separate; border-spacing: 5px;">
+                    <tr>
+                        <td><button class="nice-button fixed-size" onclick="appendToCalc('7')">7</button></td>
+                        <td><button class="nice-button fixed-size" onclick="appendToCalc('8')">8</button></td>
+                        <td><button class="nice-button fixed-size" onclick="appendToCalc('9')">9</button></td>
+                        <td><button class="nice-button fixed-size" onclick="appendToCalc('(')">(</button></td>
+                        <td><button class="nice-button fixed-size" onclick="appendToCalc(')')">)</button></td>
+                    </tr>
+                    <tr>
+                        <td><button class="nice-button fixed-size" onclick="appendToCalc('4')">4</button></td>
+                        <td><button class="nice-button fixed-size" onclick="appendToCalc('5')">5</button></td>
+                        <td><button class="nice-button fixed-size" onclick="appendToCalc('6')">6</button></td>
+                        <td><button class="nice-button fixed-size" onclick="appendToCalc('÷')">÷</button></td>
+                        <td><button class="nice-button fixed-size" onclick="appendToCalc('x')">x</button></td>
+                    </tr>
+                    <tr>
+                        <td><button class="nice-button fixed-size" onclick="appendToCalc('1')">1</button></td>
+                        <td><button class="nice-button fixed-size" onclick="appendToCalc('2')">2</button></td>
+                        <td><button class="nice-button fixed-size" onclick="appendToCalc('3')">3</button></td>
+                        <td><button class="nice-button fixed-size" onclick="appendToCalc('-')">-</button></td>
+                        <td rowspan="2"><button class="nice-button fixed-size-x2" onclick="calculateResult()">=</button></td>
+                    </tr>
+                    <tr>
+                        <td><button class="nice-button fixed-size" onclick="appendToCalc('0')">0</button></td>
+                        <td><button class="nice-button fixed-size" onclick="appendToCalc('.')">.</button></td>
+                        <td><button class="nice-button fixed-size" onclick="appendToCalc('+')">+</button></td>
+                        <td><button class="nice-button fixed-size" onclick="appendToCalc('^')">^</button></td>
+                    </tr>
+                    <tr>
+                        <td colspan="3"><button class="nice-button" onclick="clearCalc()" style="width: 100%;">Clear</button></td>
+                        <td colspan="2"><button class="nice-button" onclick="backspaceCalc()" style="width: 100%;"><img style="width: 16px; height: 16px;" src="../assets/images/delete.png" alt="Delete"></button></td>
+                    </tr>
+                </table>
             </app-window>
 
-            <app-window id="window-4" title="My Custom Window2">
-                <p>hi2</p>
+            <app-window winid="goto-window" title="Goto Page" windowstyle="height: 320px; min-height: 320px;">
+                <h1>Goto Page</h1>
+                <p>This is a simple "Goto Page" window. You can use it to navigate to different urls.</p>
+                <input type="text" class="nice-input" id="gotoInput" placeholder="Enter URL here">
+                <button class="nice-button" onclick="gotoPage()" style="width: 100%;">Go</button>
+                <p style="font-size: 10px; color: #666;">P.S. See if you can hack my page using javascript injection...</p>
+            </app-window>
+
+            <app-window winid="settings-window" title="Settings">
+                <h1>Settings</h1>
+                <p>Here you can change the settings of CurtainsOS.</p>
             </app-window>
         </main>
 
