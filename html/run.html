@@ -24,6 +24,7 @@
                     <button class="nice-button" onclick="document.getElementById('curtainOverlay').classList.remove('is-open'); setTimeout(() => { window.location.href = '../index.html'; }, 1500);">Exit</button>
                 </div>
             </div>
+
             <div class="desktop">
                 <!-- @REVIEWER! I don't have many windows now, but I'll add more in WebOS 2... -->
                 <button class="nice-button" onclick="openWindow('welcome-window')">Welcome<img class="desktop-icon" src="../assets/images/welcome.png" alt="Welcome"></button>
@@ -31,6 +32,7 @@
                 <button class="nice-button" onclick="openWindow('calculator-window')">Calculator<img class="desktop-icon" src="../assets/images/calculator.png" alt="Calculator"></button>
                 <button class="nice-button" onclick="openWindow('goto-window')">Goto Page<img class="desktop-icon" src="../assets/images/browser.png" alt="Goto Page"></button>
                 <button class="nice-button" onclick="openWindow('weather-window')">Weather<img class="desktop-icon" src="../assets/images/weather.png" alt="Weather"></button>
+                <button class="nice-button" onclick="openWindow('terminal-window')">Terminal<img class="desktop-icon" src="../assets/images/terminal.png" alt="Terminal"></button>
                 <button class="nice-button" onclick="openWindow('settings-window')">Settings<img class="desktop-icon" src="../assets/images/settings.png" alt="Settings"></button>
             </div>
 
@@ -39,7 +41,7 @@
                 <p>This is CurtainsOS! A pun on Windows, with lot's of cool features such as curtain animations and other easter eggs.</p>
             </app-window>
 
-            <app-window winid="notes-window" title="Notes">
+            <app-window winid="notes-window" title="Notes" contentstyle="display: flex; flex-direction: column; align-items: center; justify-content: center;">
                 <script src="../js/notes.js"></script>
                 <textarea class="nice-textarea" id="notes-input" placeholder="This is a simple notes window. You can add your own notes here." onchange="saveNotes();"></textarea>
             </app-window>
@@ -98,6 +100,13 @@
                 <button class="refresh-button"><img id="refreshButton" src="../assets/images/refresh.png" alt="Refresh" onclick="getWeatherOpenMeteo();"></button>
                 <p>Temperature: <span id="weatherTemperature">--</span>°C</p>
                 <p>Weather: <span id="weatherDescription">--</span></p>
+            </app-window>
+
+            <app-window winid="terminal-window" title="Terminal" contentstyle="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                <script src="../js/terminal.js"></script>
+                <h1 style="margin-right: auto;">Terminal</h1>
+                <p style="margin-right: auto;">This is a simple terminal window. You can use it to execute commands.</p>
+                <textarea class="nice-textarea" id="terminalInput" placeholder="Enter command here" onkeydown="if(event.key === 'Enter'){ executeCommand(); event.preventDefault(); }"></textarea>
             </app-window>
 
             <app-window winid="settings-window" title="Settings" windowstyle="height: 350px; width: 380px; min-height: 350px; min-width: 380px;">

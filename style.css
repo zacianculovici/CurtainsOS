@@ -37,12 +37,18 @@ body {
 
 .nice-textarea {
     width: calc(100% - 20px);
-    height: calc(100% - 20px);
+    flex-grow: 1;
     padding: 10px;
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 5px;
     resize: none;
+}
+
+.nice-textarea:focus {
+    outline: none;
+    border-color: #e8dc00;
+    box-shadow: 0 0 5px rgba(232, 220, 0, 0.5);
 }
 
 .fixed-size {
