@@ -57,6 +57,7 @@ class AppWindow extends HTMLElement {
 customElements.define('app-window', AppWindow);
 
 function initializeWindow(anyWindow) {
+    anyWindow.rotation = 0;
     var initialX=0, initialY=0, offsetX=0, offsetY=0;
     if (anyWindow.querySelector(".window-header")) {
         anyWindow.querySelector(".window-header").addEventListener("mousedown", startDrag);
@@ -119,6 +120,8 @@ function openWindow(windowId) {
         }
     });
     if (myWindow) {
+        myWindow.rotation += 2 * 360;
+        myWindow.style.transform = `rotate(${myWindow.rotation}deg) scale(1)`;
         myWindow.style.visibility = "visible"; // Show the window
         myWindow.style.zIndex = 900; // Bring the window to the front
         if (windowId !== "welcome-window" && localStorage.getItem("windowPositions") === null) {
@@ -137,8 +140,12 @@ function closeWindow(windowId) {
         }
     });
     if (myWindow) {
-        myWindow.style.visibility = "hidden"; // Hide the window
-        myWindow.style.zIndex = 0; // Reset the z-index
+        myWindow.rotation += 2 * 360;
+        myWindow.style.transform = `rotate(${myWindow.rotation}deg) scale(0)`;
+        setTimeout(() => {
+            myWindow.style.visibility = "hidden"; // Hide the window
+            myWindow.style.zIndex = 0; // Reset the z-index
+        }, 1000); // Wait for the rotation animation to complete before hiding
     } else {
         console.error(`Window with ID "${windowId}" not found.`);
     }
