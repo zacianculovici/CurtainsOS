@@ -1,5 +1,9 @@
 document.addEventListener('DOMContentLoaded', () => {
     const curtainOverlay = document.getElementById('curtainOverlay');
+    if (localStorage.getItem('curtainAnimationEnabled') === 'false') {
+        curtainOverlay.style.display = 'none';
+        return;
+    }
     setTimeout(() => {
         curtainOverlay.classList.add('is-open');
     }, 200);
