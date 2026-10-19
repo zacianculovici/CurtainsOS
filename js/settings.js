@@ -9,7 +9,9 @@ function changeBackgroundImage(event) {
         };
         reader.readAsDataURL(file);
     }
-    saveBackgroundImage(name);
+    setTimeout(() => {
+        saveBackgroundImage(name);
+    }, 100);
 }
 
 function saveBackgroundImage(name) {
@@ -24,7 +26,14 @@ function loadBackgroundImage() {
     if (backgroundImage) {
         document.body.style.backgroundImage = backgroundImage;
     }
-    document.getElementById('currentBackgroundImageName').textContent = backgroundName || 'No image selected';
+    document.getElementById('currentBackgroundImageName').textContent = backgroundName || 'Default';
+}
+
+function resetBackgroundImage() {
+    document.body.style.backgroundImage = '';
+    localStorage.removeItem('backgroundImage');
+    localStorage.removeItem('backgroundImageName');
+    document.getElementById('currentBackgroundImageName').textContent = 'Default';
 }
 
 document.addEventListener('DOMContentLoaded', () => {

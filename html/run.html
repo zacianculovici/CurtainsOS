@@ -95,7 +95,7 @@
                 <script src="../js/settings.js"></script>
                 <h1>Settings</h1>
                 <p>Here you can change the settings of CurtainsOS.</p>
-                <p>Change background image: <span id="currentBackgroundImageName">Default</span></p>
+                <span>Change background image: <span id="currentBackgroundImageName">Default</span></span><button class="nice-button" onclick="resetBackgroundImage()" style="margin-left: 10px;">Reset</button>
                 <input type="file" id="backgroundImageInput" accept="image/*" onchange="changeBackgroundImage(event)" class="nice-input">
                 <p>Fit background image</p>
                 <input type="radio" id="fit-direction" name="background-fit" value="Width" onchange="changeBackgroundFit('Width')" checked>
