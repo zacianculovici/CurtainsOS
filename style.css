@@ -10,12 +10,18 @@ h1 {
     font-size: 24px;
 }
 
+
 p {
     font-family: Arial, sans-serif;
     font-size: 16px;
 }
 
 span {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+}
+
+label {
     font-family: Arial, sans-serif;
     font-size: 16px;
 }
@@ -60,10 +66,17 @@ body {
     border-radius: 5px;
 }
 
+.nice-checkbox {
+    width: 16px;
+    height: 16px;
+    margin: 5px;
+}
+
 #osbody {
     background-image: url('https://i.etsystatic.com/27900351/r/il/af1206/7111336485/il_1080xN.7111336485_26td.jpg');
-    background-size: cover;
+    background-size: 100% auto;
     background-position: center bottom;
+    background-repeat: no-repeat;
 }
 
 .desktop-icon {
