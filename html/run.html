@@ -30,6 +30,7 @@
                 <button class="nice-button" onclick="openWindow('notes-window')">Notes<img class="desktop-icon" src="../assets/images/notes.png" alt="Notes"></button>
                 <button class="nice-button" onclick="openWindow('calculator-window')">Calculator<img class="desktop-icon" src="../assets/images/calculator.png" alt="Calculator"></button>
                 <button class="nice-button" onclick="openWindow('goto-window')">Goto Page<img class="desktop-icon" src="../assets/images/browser.png" alt="Goto Page"></button>
+                <button class="nice-button" onclick="openWindow('weather-window')">Weather<img class="desktop-icon" src="../assets/images/weather.png" alt="Weather"></button>
                 <button class="nice-button" onclick="openWindow('settings-window')">Settings<img class="desktop-icon" src="../assets/images/settings.png" alt="Settings"></button>
             </div>
 
@@ -89,6 +90,14 @@
                 <input type="text" class="nice-input" id="gotoInput" placeholder="Enter URL here">
                 <button class="nice-button" onclick="gotoPage()" style="width: 100%;">Go</button>
                 <p style="font-size: 10px; color: #666;">P.S. See if you can hack my page using javascript injection...</p>
+            </app-window>
+
+            <app-window winid="weather-window" title="Weather">
+                <script src="../js/weather.js"></script>
+                <h1>Weather</h1>
+                <button class="refresh-button"><img id="refreshButton" src="../assets/images/refresh.png" alt="Refresh" onclick="getWeatherOpenMeteo();"></button>
+                <p>Temperature: <span id="weatherTemperature">--</span>°C</p>
+                <p>Weather: <span id="weatherDescription">--</span></p>
             </app-window>
 
             <app-window winid="settings-window" title="Settings" windowstyle="height: 350px; width: 380px; min-height: 350px; min-width: 380px;">

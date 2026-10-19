@@ -79,6 +79,21 @@ body {
     background-repeat: no-repeat;
 }
 
+#refreshButton {
+    width: 30px;
+    height: auto;
+    cursor: pointer;
+}
+
+.refresh-button {
+    position: absolute;
+    top: 50px;
+    right: 5px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
 .desktop-icon {
     width: 45px;
     height: auto;
