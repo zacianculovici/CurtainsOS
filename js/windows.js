@@ -121,7 +121,7 @@ function openWindow(windowId) {
     if (myWindow) {
         myWindow.style.visibility = "visible"; // Show the window
         myWindow.style.zIndex = 900; // Bring the window to the front
-        if (windowId !== "window-1") {
+        if (windowId !== "welcome-window" && localStorage.getItem("windowPositions") === null) {
             myWindow.style.top = (Math.random() * (window.innerHeight - myWindow.offsetHeight - document.querySelector("#top-bar").offsetHeight)) + document.querySelector("#top-bar").offsetHeight + "px";
             myWindow.style.left = (Math.random() * (window.innerWidth - myWindow.offsetWidth)) + "px";
         }
