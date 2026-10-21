@@ -1,3 +1,88 @@
+reWords = [
+  "reabsorb",
+  "react",
+  "read",
+  "ready",
+  "real",
+  "reason",
+  "rebuild",
+  "recenter",
+  "recipe",
+  "recognize",
+  "reconnect",
+  "record",
+  "recover",
+  "recycle",
+  "reduce",
+  "refer",
+  "reflect",
+  "reform",
+  "refresh",
+  "refund",
+  "regard",
+  "region",
+  "regret",
+  "regular",
+  "rehearse",
+  "reign",
+  "reinforce",
+  "reject",
+  "rejoice",
+  "relapse",
+  "relate",
+  "relax",
+  "release",
+  "reliable",
+  "relief",
+  "relieve",
+  "religion",
+  "relish",
+  "reload",
+  "relocate",
+  "reluctant",
+  "rely",
+  "remain",
+  "remember",
+  "remind",
+  "remote",
+  "removal",
+  "remove",
+  "render",
+  "renew",
+  "renovate",
+  "rent",
+  "reopen",
+  "reorder",
+  "repair",
+  "repay",
+  "repeat",
+  "replace",
+  "reply",
+  "report",
+  "represent",
+  "request",
+  "require",
+  "rescue",
+  "research",
+  "reserve",
+  "resign",
+  "resist",
+  "resolve",
+  "respect",
+  "respond",
+  "restore",
+  "result",
+  "retain",
+  "retire",
+  "return",
+  "reveal",
+  "review",
+  "revise",
+  "revive",
+  "reward",
+  "rewrite"
+]
+
 function help() {
     const helpText = `
 Available commands:
@@ -64,14 +149,45 @@ function my_open(args) {
     }
 }
 
+function rr() {
+    const terminalInput = document.getElementById('terminalInput');
+    terminalInput.value += '\nPrepare to be rickrolled...';
+    closeWindow('terminal-window');
+    setTimeout(() => {
+        document.location.href = 'https://zacianculovici.github.io/rrr/';
+    }, 1000);
+}
+
+function re() {
+    const terminalInput = document.getElementById('terminalInput');
+    const randomIndex = Math.floor(Math.random() * reWords.length);
+    const randomWord = reWords[randomIndex];
+    terminalInput.value += `\n${randomWord}`;
+}
+
+function clear() {
+    const terminalInput = document.getElementById('terminalInput');
+    terminalInput.value = '';
+}
+
+function shutdown() {
+    const terminalInput = document.getElementById('terminalInput');
+    terminalInput.value += '\nShutting down...';
+    document.getElementById('curtainOverlay').classList.remove('is-open');
+    setTimeout(() => {
+        window.location.href = '../index.html';
+    }, 1500);
+}
+
 var commands = {
     "help": help,
     "echo": echo,
     "info": info,
     "open": my_open,
-    // "rr": rr,
-    // "re": re,
-    // "shutdown": shutdown,
+    "rr": rr,
+    "re": re,
+    "clear": clear,
+    "shutdown": shutdown,
     // "/kill @e": kill,
     // "js": js,
     // "knockknock": knockknock,
@@ -99,7 +215,6 @@ function executeCommand(command) {
 
 document.addEventListener('DOMContentLoaded', () => {
     const terminalInput = document.getElementById('terminalInput');
-    console.log('Terminal input element:', terminalInput);
 
     function lockCursorToEnd() {
         const length = terminalInput.value.length;
@@ -124,8 +239,12 @@ document.addEventListener('DOMContentLoaded', () => {
             event.preventDefault();
             const command = terminalInput.value.slice(terminalInput.value.lastIndexOf('$CurtainsOS > ') + 14, terminalInput.value.length).trim();
             executeCommand(command);
-            terminalInput.value += '\n$CurtainsOS > ';
+            if (command !== 'clear') {
+                terminalInput.value += '\n';
+            }
+            terminalInput.value += '$CurtainsOS > ';
             lockCursorToEnd();
+            terminalInput.scrollTop = terminalInput.scrollHeight;
         } else if (event.key === 'Backspace') {
             event.preventDefault();
             const currentValue = terminalInput.value;
@@ -137,6 +256,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     terminalInput.value = newValue;
                     terminalInput.setSelectionRange(terminalInput.selectionStart - 1, terminalInput.selectionStart - 1);
                 }
+            }
+        } else if (event.key === 'ArrowUp') {
+            event.preventDefault();
+            const lastPromptIndex = terminalInput.value.lastIndexOf('$CurtainsOS > ');
+            const secondLastPromptIndex = terminalInput.value.lastIndexOf('$CurtainsOS > ', lastPromptIndex - 1);
+            if (lastPromptIndex !== -1 && secondLastPromptIndex !== -1) {
+                const previousCommand = terminalInput.value.slice(secondLastPromptIndex + 14, lastPromptIndex).trim();
+                terminalInput.value += previousCommand.split('\n')[0];
+                lockCursorToEnd();
             }
         }
     });
