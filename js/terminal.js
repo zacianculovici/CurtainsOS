@@ -1,5 +1,105 @@
+function help() {
+    const helpText = `
+Available commands:
+- help: Show this help message
+- echo [text]: Echo the provided text
+- info: Display information about the system
+- open [appname]: Open the specified application
+- rr: You'll have to find out
+- re: Spit out a random word starting with "re"
+- shutdown: Shut down the system
+- /kill @e: Kill all entities
+- js [code]: Execute JavaScript code
+- knockknock: Who's there?
+- whyyyyyy: ANGER...
+- deleteme: Delete you. Probably breaks the entire system. Are you gonna try it?...
+- orph: W ORPHEUS!!!`;
+
+    const terminalInput = document.getElementById('terminalInput');
+    terminalInput.value += helpText;
+}
+
+function echo(args) {
+    const terminalInput = document.getElementById('terminalInput');
+    terminalInput.value += '\n' + args.join(' ');
+}
+function info() {
+    const terminalInput = document.getElementById('terminalInput');
+    terminalInput.value += '\nCurtainsOS v2.0\nDeveloped by Zac Ianculovici\nAll rights reserved.';
+}
+
+function openWindow(windowId) {
+    var myWindow = null;
+    document.querySelectorAll("app-window").forEach(window => {
+        var id = window.getAttribute("winid");
+        if (id === windowId) {
+            myWindow = window.shadowRoot.querySelector(".window");
+        }
+    });
+    if (myWindow) {
+        myWindow.rotation += 2 * 360;
+        myWindow.style.transform = `rotate(${myWindow.rotation}deg) scale(1)`;
+        myWindow.style.visibility = "visible"; // Show the window
+        myWindow.style.zIndex = 900; // Bring the window to the front
+        if (windowId !== "welcome-window" && localStorage.getItem("windowPositions") === null) {
+            myWindow.style.top = (Math.random() * (window.innerHeight - myWindow.offsetHeight - document.querySelector("#top-bar").offsetHeight)) + document.querySelector("#top-bar").offsetHeight + "px";
+            myWindow.style.left = (Math.random() * (window.innerWidth - myWindow.offsetWidth)) + "px";
+        }
+    }
+}
+
+function my_open(args) {
+    const terminalInput = document.getElementById('terminalInput');
+    if (args.length === 0) {
+        terminalInput.value += '\nPlease specify an application to open.';
+        return;
+    }
+    const appName = args[0].toLowerCase();
+    const appWindow = document.querySelector(`app-window[winid="${appName}-window"]`);
+    if (appWindow) {
+        openWindow(appName);
+        terminalInput.value += `\nOpened ${appName}.`;
+    } else {
+        terminalInput.value += `\nApplication "${appName}" not found.`;
+    }
+}
+
+var commands = {
+    "help": help,
+    "echo": echo,
+    "info": info,
+    "open": my_open,
+    // "rr": rr,
+    // "re": re,
+    // "shutdown": shutdown,
+    // "/kill @e": kill,
+    // "js": js,
+    // "knockknock": knockknock,
+    // "whyyyyy": whyyyyy,
+    // "deleteme": deleteme,
+    // "orph": orph,
+}
+
+function executeCommand(command) {
+    console.log(`Executing command: ${command}`);
+    if (!command) {
+        return;
+    }
+    const terminalInput = document.getElementById('terminalInput');
+    const args = command.split(' ');
+    const cmd = args.shift();
+    
+    if (commands[cmd]) {
+        console.log(`Found command: ${cmd}, executing with args: ${args}`);
+        commands[cmd](args);
+    } else {
+        terminalInput.value += `\nCommand not found: ${cmd}`;
+    }
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     const terminalInput = document.getElementById('terminalInput');
+    console.log('Terminal input element:', terminalInput);
 
     function lockCursorToEnd() {
         const length = terminalInput.value.length;
@@ -17,5 +117,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     terminalInput.addEventListener('mousedown', () => {
         lockCursorToEnd();
+    });
+
+    terminalInput.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            const command = terminalInput.value.slice(terminalInput.value.lastIndexOf('$CurtainsOS > ') + 14, terminalInput.value.length).trim();
+            executeCommand(command);
+            terminalInput.value += '\n$CurtainsOS > ';
+            lockCursorToEnd();
+        } else if (event.key === 'Backspace') {
+            event.preventDefault();
+            const currentValue = terminalInput.value;
+            const lastPromptIndex = currentValue.lastIndexOf('$CurtainsOS > ');
+            if (lastPromptIndex !== -1) {
+                const commandStartIndex = lastPromptIndex + 14;
+                if (terminalInput.selectionStart > commandStartIndex) {
+                    const newValue = currentValue.slice(0, terminalInput.selectionStart - 1) + currentValue.slice(terminalInput.selectionEnd);
+                    terminalInput.value = newValue;
+                    terminalInput.setSelectionRange(terminalInput.selectionStart - 1, terminalInput.selectionStart - 1);
+                }
+            }
+        }
     });
 });

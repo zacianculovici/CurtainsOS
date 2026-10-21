@@ -102,11 +102,11 @@
                 <p>Weather: <span id="weatherDescription">--</span></p>
             </app-window>
 
-            <app-window winid="terminal-window" title="Terminal" contentstyle="display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <app-window winid="terminal-window" title="Terminal" windowstyle="height: 500px; min-height: 500px; width: 500px; min-width: 500px;" contentstyle="display: flex; flex-direction: column; align-items: center; justify-content: center;">
                 <script src="../js/terminal.js"></script>
                 <h1 style="margin-right: auto;">Terminal</h1>
                 <p style="margin-right: auto;">This is a simple terminal window. You can use it to execute commands.</p>
-                <textarea class="nice-textarea" id="terminalInput" placeholder="Enter command here" onkeydown="if(event.key === 'Enter'){ executeCommand(); event.preventDefault(); }"></textarea>
+                <textarea class="nice-textarea no-wrap-textarea" id="terminalInput" placeholder="Enter command here" spellcheck="false">$CurtainsOS > </textarea>
             </app-window>
 
             <app-window winid="settings-window" title="Settings" windowstyle="height: 350px; width: 380px; min-height: 350px; min-width: 380px;">
