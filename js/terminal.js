@@ -93,7 +93,6 @@ Available commands:
 - rr: You'll have to find out
 - re: Spit out a random word starting with "re"
 - shutdown: Shut down the system
-- /kill @e: Kill all entities
 - js [code]: Execute JavaScript code
 - knockknock: Who's there?
 - whyyyyyy: ANGER...
@@ -179,6 +178,81 @@ function shutdown() {
     }, 1500);
 }
 
+function js(args) {
+    const terminalInput = document.getElementById('terminalInput');
+    const code = args.join(' ');
+    try {
+        const result = eval(code);
+        terminalInput.value += `\nResult: ${result}`;
+    } catch (error) {
+        terminalInput.value += `\nError: ${error.message}`;
+    }
+}
+
+function knockknock() {
+    const terminalInput = document.getElementById('terminalInput');
+    terminalInput.value += '\nWho\'s there?';
+}
+
+function whyyyyy() {
+    const terminalInput = document.getElementById('terminalInput');
+    terminalInput.value += '\nArghhhh!';
+}
+
+const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+async function deleteChildElements(element) {
+    while (element.firstChild) {
+        if (element.firstChild.firstChild) {
+            await deleteChildElements(element.firstChild);
+            await delay(100);
+        }
+        if (element.computedStyleMap().get('visibility').toString() !== 'hidden' && element.computedStyleMap().get('display').toString() !== 'none') {
+            element.removeChild(element.firstChild);
+            await delay(100);
+        } else {
+            element.removeChild(element.firstChild);
+        }
+    }
+}
+
+async function deleteme() {
+    const terminalInput = document.getElementById('terminalInput');
+    await document.querySelector('body').querySelectorAll('*').forEach(async (element) => {
+        await deleteChildElements(element);
+    });
+    terminalInput.value += '\nAll elements deleted.';
+    await delay(5000);
+    document.location.href = '../html/run.html';
+}
+
+async function orph() {
+    const terminalInput = document.getElementById('terminalInput');
+    terminalInput.value += '\nW ORPHEUS!!!';
+    let delayTime = 500; // Initial delay time in milliseconds
+    for (let i = 0; i < 1000; i++) {
+        const orphElement = document.createElement('img');
+        orphElement.src = '../assets/images/orph.png';
+        orphElement.alt = 'Orpheus';
+        orphElement.style.position = 'fixed';
+        orphElement.style.bottom = Math.random() * window.innerHeight - 100 + 'px';
+        orphElement.style.right = Math.random() * window.innerWidth - 100 + 'px';
+        orphElement.style.width = '100px';
+        orphElement.style.height = '100px';
+        orphElement.style.zIndex = '9999';
+        orphElement.style.cursor = 'pointer';
+        orphElement.addEventListener('click', () => {
+            orphElement.remove();
+            if (document.querySelectorAll('img[alt="Orpheus"]').length === 0) {
+                terminalInput.value += '\n*Gasp*! You brutally slaughtered all the Orpheus clones!\nYou.\nAre.\nEvill!';
+            }
+        });
+        document.body.appendChild(orphElement);
+        await delay(delayTime);
+        delayTime = delayTime / 1.1;
+    }
+}
+
 var commands = {
     "help": help,
     "echo": echo,
@@ -188,12 +262,11 @@ var commands = {
     "re": re,
     "clear": clear,
     "shutdown": shutdown,
-    // "/kill @e": kill,
-    // "js": js,
-    // "knockknock": knockknock,
-    // "whyyyyy": whyyyyy,
-    // "deleteme": deleteme,
-    // "orph": orph,
+    "js": js,
+    "knockknock": knockknock,
+    "whyyyyy": whyyyyy,
+    "deleteme": deleteme,
+    "orph": orph,
 }
 
 function executeCommand(command) {
