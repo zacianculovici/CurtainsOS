@@ -244,7 +244,7 @@ async function orph() {
         orphElement.addEventListener('click', () => {
             orphElement.remove();
             if (document.querySelectorAll('img[alt="Orpheus"]').length === 0) {
-                terminalInput.value += '\n*Gasp*! You brutally slaughtered all the Orpheus clones!\nYou.\nAre.\nEvill!';
+                terminalInput.value += '\n*Gasp*!\nYou brutally slaughtered all the Orpheus clones!\nYou\nAre\nEvilll!';
             }
         });
         document.body.appendChild(orphElement);
