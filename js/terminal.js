@@ -115,6 +115,7 @@ function info() {
 function openWindow(windowId) {
     var myWindow = null;
     document.querySelectorAll("app-window").forEach(window => {
+        console.log(window);
         var id = window.getAttribute("winid");
         if (id === windowId) {
             myWindow = window.shadowRoot.querySelector(".window");
@@ -129,7 +130,11 @@ function openWindow(windowId) {
             myWindow.style.top = (Math.random() * (window.innerHeight - myWindow.offsetHeight - document.querySelector("#top-bar").offsetHeight)) + document.querySelector("#top-bar").offsetHeight + "px";
             myWindow.style.left = (Math.random() * (window.innerWidth - myWindow.offsetWidth)) + "px";
         }
+    } else {
+        console.error(`Window with ID "${windowId}" not found.`);
+        return false;
     }
+    return true;
 }
 
 function my_open(args) {
@@ -138,11 +143,14 @@ function my_open(args) {
         terminalInput.value += '\nPlease specify an application to open.';
         return;
     }
-    const appName = args[0].toLowerCase();
-    const appWindow = document.querySelector(`app-window[winid="${appName}-window"]`);
+    const appName = args[0].toLowerCase() + '-window';
+    const appWindow = document.querySelector(`app-window[winid="${appName}"]`);
     if (appWindow) {
-        openWindow(appName);
-        terminalInput.value += `\nOpened ${appName}.`;
+        if (!openWindow(appName)) {
+            terminalInput.value += `\nFailed to open ${appName}.`;
+        } else {
+            terminalInput.value += `\nOpened ${appName}.`;
+        }
     } else {
         terminalInput.value += `\nApplication "${appName}" not found.`;
     }
