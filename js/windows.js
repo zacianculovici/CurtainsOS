@@ -44,6 +44,7 @@ class AppWindow extends HTMLElement {
             }">
                 <div class="window-header no-select">
                     <span class="window-title">${this.getAttribute('title')}</span>
+                    <button class="fullscreen-button"><img class="fullscreen-icon" src="../assets/images/fullscreen.svg" alt="Fullscreen"></button>
                     <button class="close-button"><img class="close-icon" src="../assets/images/close.svg" alt="Close"></button>
                 </div>
                 <div class="window-content" style="${this.getAttribute('contentstyle') || ''}">
@@ -100,6 +101,9 @@ document.addEventListener("DOMContentLoaded", function() {
         element.shadowRoot.querySelector(".window-header").querySelector(".close-button").addEventListener("click", function() {
             closeWindow(element.shadowRoot.querySelector(".window").getAttribute('id'));
         });
+        element.shadowRoot.querySelector(".window-header").querySelector(".fullscreen-button").addEventListener("click", function() {
+            fullscreenWindow(element.shadowRoot.querySelector(".window").getAttribute('id'));
+        });
         element.shadowRoot.querySelector(".window").addEventListener("mousedown", function() {
             element.shadowRoot.querySelector(".window").style.zIndex = 910; // Bring the clicked window to the front
             elements.forEach(function(otherElement) {
@@ -146,6 +150,62 @@ function closeWindow(windowId) {
             myWindow.style.visibility = "hidden"; // Hide the window
             myWindow.style.zIndex = 0; // Reset the z-index
         }, 1000); // Wait for the rotation animation to complete before hiding
+    } else {
+        console.error(`Window with ID "${windowId}" not found.`);
+    }
+}
+
+function fullscreenWindow(windowId) {
+    var myWindow = null;
+    var myWindowHeader = null;
+    document.querySelectorAll("app-window").forEach(window => {
+        var id = window.getAttribute("winid");
+        if (id === windowId) {
+            myWindow = window.shadowRoot.querySelector(".window");
+            myWindowHeader = window.shadowRoot.querySelector(".window-header");
+        }
+    });
+    if (myWindow) {
+        myWindow.style.top = document.querySelector("#top-bar").offsetHeight + "px";
+        myWindow.style.left = "0px";
+        myWindow.style.width = "100%";
+        myWindow.style.height = (window.innerHeight - document.querySelector("#top-bar").offsetHeight) + "px";
+        myWindow.style.resize = "none";
+        myWindowHeader.querySelector(".fullscreen-button").querySelector(".fullscreen-icon").src = "../assets/images/collapse-fullscreen.svg";
+        myWindowHeader.querySelector(".fullscreen-button").removeEventListener("click", function() {
+            fullscreenWindow(windowId);
+        });
+        myWindowHeader.querySelector(".fullscreen-button").addEventListener("click", function() {
+            unfullscreenWindow(windowId);
+        });
+    } else {
+        console.error(`Window with ID "${windowId}" not found.`);
+    }
+}
+
+function unfullscreenWindow(windowId) {
+    var myWindow = null;
+    var myWindowHeader = null;
+    document.querySelectorAll("app-window").forEach(window => {
+        var id = window.getAttribute("winid");
+        if (id === windowId) {
+            myWindow = window.shadowRoot.querySelector(".window");
+            myWindowHeader = window.shadowRoot.querySelector(".window-header");
+        }
+    });
+    if (myWindow) {
+        myWindow.style.width = "400px"; // Reset to original width
+        myWindow.style.height = "300px"; // Reset to original height
+        myWindow.style.top = (Math.random() * (window.innerHeight - myWindow.offsetHeight - document.querySelector("#top-bar").offsetHeight)) + document.querySelector("#top-bar").offsetHeight + "px";
+        myWindow.style.left = (Math.random() * (window.innerWidth - myWindow.offsetWidth)) + "px";
+        myWindow.style.resize = "both";
+        myWindowHeader.querySelector(".fullscreen-button").querySelector(".fullscreen-icon").src = "../assets/images/fullscreen.svg";
+        myWindowHeader.querySelector(".fullscreen-button").removeEventListener("click", function() {
+            unfullscreenWindow(windowId);
+        });
+        myWindowHeader.querySelector(".fullscreen-button").addEventListener("click", function() {
+            fullscreenWindow(windowId);
+        });
     } else {
         console.error(`Window with ID "${windowId}" not found.`);
     }

@@ -152,6 +152,23 @@ body {
     transform: scale(1.1);
 }
 
+.fullscreen-button {
+    background-color: #04cd04;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: transform 0.2s ease;
+    margin-right: 5px;
+    margin-left: auto;
+}
+
+.fullscreen-button:hover {
+    transform: scale(1.1);
+}
+
 a {
     text-decoration: underline;
 }
@@ -192,6 +209,11 @@ footer {
 }
 
 .close-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.fullscreen-icon {
     width: 16px;
     height: 16px;
 }
