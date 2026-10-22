@@ -19,6 +19,15 @@ This is CurtainsOS! A pun on Windows, with lot's of cool features such as curtai
 - Randomly placed windows on open
 - Auto window raising (when you click on them)
 - Custom HTMLElements (`<app-window>`s) to make the adding of windows easy-peasy
+### Added in Ship #2
+- A fullscreen button on windows
+- Window open/close animations
+- A terminal app with a bunch of commands (type `help` to see them)
+- Settings app with custom background image, and you can turn off the curtain animations. This is saved to `localStorage`
+- Saved notes
+- Saved window positions and states
+- Simple weather app from [OpenMeteo](https://open-meteo.com/)
+- Nice fade-in transition to dull the CSS-load flashing
 - More?...
 
 ## Credits
